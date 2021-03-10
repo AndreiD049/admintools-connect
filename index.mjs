@@ -1,17 +1,5 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import API from './src/api.mjs';
-import NRP from 'node-redis-pubsub';
-import config from './src/config.mjs';
-
-const publisher = new NRP({
-  host: config.REDIS_HOST,
-  password: config.REDIS_PASSWORD,
-});
-
-// setInterval(() => {
-//   publisher.emit('tasks:1234', { test: 'data' });
-// }, 5000);
 
 const app = express();
 app.use(express.urlencoded());
