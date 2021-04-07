@@ -45,12 +45,15 @@ export default class ConnectSession {
     });
     // Tasks listener
     subscriber.on(taskChannel, (data) => {
-      const {target} = data;
+      const { targets } = data;
       this.connections.forEach((connection) => {
-        if (connection.subscribedTo.has(target) || this.userId === target) {
-          connection.publish(data);
+        for (let i = 0; i < targets.length; i++) {
+          const target = targets[i];
+          if (connection.subscribedTo.has(target) || this.userId === target) {
+            return connection.publish(data);
+          }
         }
-      })
+      });
     });
 
     return subscriber;
